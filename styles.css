@@ -1,0 +1,65 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; 
+  font-family: 'Poppins', sans-serif;
+}
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://images.pexels.com/photos/983826/pexels-photo-983826.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+}
+
+.logo img {
+  width: 150px;
+}
+
+.options {
+  position: absolute;
+  top: 90px;
+  left: 210px;
+}
+
+.options ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.options li {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.options a {
+  text-decoration: none;
+  color: black;
+  font-size: 24px;
+  font-weight: 400;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(0);
+}
+.options a:hover {
+  color: #00bfff;
+  transform: scale(1.1);
+}
