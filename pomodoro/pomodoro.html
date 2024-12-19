@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #97959B, #D7D6D9);
+            color: #2A5091;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .logo img {
+            width: 200px;
+            height: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1);
+        }
+
+        .main {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 40px;
+            width: 350px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2A5091;
+        }
+
+        #timer {
+            font-size: 64px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #2A5091;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-buttons,
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 16px;
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        #pomodoro {
+            background-color: #97959B;
+            color: white;
+        }
+
+        #short-break {
+            background-color: #D7D6D9;
+            color: #2A5091;
+        }
+
+        #long-break {
+            background-color: #2A5091;
+            color: white;
+        }
+
+        #reset {
+            background-color: #97959B;
+            color: white;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo">
+        <a href="../index.html"><img src="../Logo.png" alt="Logo"></a>
+    </div>
+    <div class="main">
+        <h1>Pomodoro Timer</h1>
+        <div class="top-buttons">
+            <button id="pomodoro">Pomodoro</button>
+            <button id="short-break">Short Break</button>
+            <button id="long-break">Long Break</button>
+        </div>
+        <div id="timer">25:00</div>
+        <div class="bottom-buttons">
+            <button id="start">Start</button>
+            <button id="reset">Reset</button>
+        </div>
+        <audio id="alarm" src="../old_alarm_sound.mp3"></audio>
+    </div>
+    <script>
+        let timerInterval;
+        let timeLeft;
+        let currentMode = 25;
+
+        function startTimer(minutes) {
+            clearInterval(timerInterval);
+            timeLeft = minutes * 60;
+
+            timerInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById("timer").textContent =
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                if (timeLeft === 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById("alarm").play();
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        document.getElementById("pomodoro").addEventListener("click", () => {
+            currentMode = 25;
+            document.getElementById("timer").textContent = "25:00";
+        });
+
+        document.getElementById("short-break").addEventListener("click", () => {
+            currentMode = 5;
+            document.getElementById("timer").textContent = "05:00";
+        });
+
+        document.getElementById("long-break").addEventListener("click", () => {
+            currentMode = 20;
+            document.getElementById("timer").textContent = "20:00";
+        });
+
+        document.getElementById("start").addEventListener("click", () => {
+            startTimer(currentMode);
+        });
+
+        document.getElementById("reset").addEventListener("click", () => {
+            clearInterval(timerInterval);
+            document.getElementById("timer").textContent = `${currentMode.toString().padStart(2, '0')}:00`;
+        });
+    </script>
+</body>
+
+</html>
