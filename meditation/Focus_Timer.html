@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,27 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom right, #c7d2fe, #a5b4fc);
+            background: linear-gradient(to bottom right, #97959B, #D7D6D9);
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             color: #333;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .logo img {
+            width: 200px;
+            height: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         .container {
@@ -35,17 +50,18 @@
             height: 250px;
         }
 
-        .box h1, .box h2 {
+        .box h1,
+        .box h2 {
             font-size: 24px;
             margin-bottom: 20px;
-            color: #4f46e5;
+            color: #2A5091;
         }
 
         #timer {
             font-size: 48px;
             font-weight: bold;
             margin: 20px 0;
-            color: #1e3a8a;
+            color: #2A5091;
         }
 
         .buttons {
@@ -59,14 +75,14 @@
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background: #4f46e5;
+            background: #2A5091;
             color: white;
             cursor: pointer;
             transition: background 0.3s ease, transform 0.2s ease;
         }
 
         button:hover {
-            background: #4338ca;
+            background: #1E3A8A;
             transform: scale(1.05);
         }
 
@@ -75,7 +91,7 @@
             padding: 10px;
             margin-top: 10px;
             border-radius: 5px;
-            border: 1px solid #ddd;
+            border: 1px solid #D7D6D9;
         }
 
         audio {
@@ -91,10 +107,14 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
+        <div class="logo">
+            <a href="../index.html"><img src="../Logo.png" alt="Logo"></a>
+        </div>
         <div class="box">
-            <h1>Pomodoro Timer</h1>
+            <h1>Focus Timer</h1>
             <label for="time-input">Enter Time (Minutes, Max 60):</label>
             <input type="number" id="time-input" min="1" max="60" value="25">
             <div id="timer">25:00</div>
@@ -109,20 +129,8 @@
             <label for="track-selector">Select a Track:</label>
             <select id="track-selector">
                 <option value="./yoga-music-relax-16182.mp3">Track 1 - Yoga Relax</option>
-                <option value="./calm-music.mp3">Track 2 - Calm Music</option>
-                <option value="./focus-music.mp3">Track 3 - Focus Music</option>
-                <option value="./meditation-music.mp3">Track 4 - Meditation Music</option>
-                <option value="./nature-sounds.mp3">Track 5 - Nature Sounds</option>
-                <option value="./piano-relaxation.mp3">Track 6 - Piano Relaxation</option>
-                <option value="./rain-sounds.mp3">Track 7 - Rain Sounds</option>
-                <option value="./study-music.mp3">Track 8 - Study Music</option>
-                <option value="./waves.mp3">Track 9 - Ocean Waves</option>
-                <option value="./white-noise.mp3">Track 10 - White Noise</option>
-                <option value="./relaxing-chill.mp3">Track 11 - Relaxing Chill</option>
-                <option value="./deep-focus.mp3">Track 12 - Deep Focus</option>
-                <option value="./forest-ambiance.mp3">Track 13 - Forest Ambiance</option>
-                <option value="./serenity.mp3">Track 14 - Serenity</option>
-                <option value="./ambient-music.mp3">Track 15 - Ambient Music</option>
+                <option value="./podcast-smooth-jazz-instrumental-music-225674.mp3">Track 2 - Calm Music</option>
+                <option value="./sunrise-meditation-lo-fi-music-267024.mp3">Track 3 - SunRise Music</option>
             </select>
             <audio id="music" controls>
                 <source id="audio-source" src="./yoga-music-relax-16182.mp3" type="audio/mpeg">
@@ -171,4 +179,5 @@
         document.getElementById("reset").addEventListener("click", resetTimer);
     </script>
 </body>
+
 </html>
