@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer with Music</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #c7d2fe, #a5b4fc);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .box {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            height: 250px;
+        }
+
+        .box h1, .box h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4f46e5;
+        }
+
+        #timer {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #1e3a8a;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #4f46e5;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: #4338ca;
+            transform: scale(1.05);
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        audio {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>Pomodoro Timer</h1>
+            <label for="time-input">Enter Time (Minutes, Max 60):</label>
+            <input type="number" id="time-input" min="1" max="60" value="25">
+            <div id="timer">25:00</div>
+            <div class="buttons">
+                <button id="start">Start</button>
+                <button id="reset">Reset</button>
+            </div>
+        </div>
+
+        <div class="box">
+            <h2>Music Player</h2>
+            <label for="track-selector">Select a Track:</label>
+            <select id="track-selector">
+                <option value="./yoga-music-relax-16182.mp3">Track 1 - Yoga Relax</option>
+                <option value="./calm-music.mp3">Track 2 - Calm Music</option>
+                <option value="./focus-music.mp3">Track 3 - Focus Music</option>
+                <option value="./meditation-music.mp3">Track 4 - Meditation Music</option>
+                <option value="./nature-sounds.mp3">Track 5 - Nature Sounds</option>
+                <option value="./piano-relaxation.mp3">Track 6 - Piano Relaxation</option>
+                <option value="./rain-sounds.mp3">Track 7 - Rain Sounds</option>
+                <option value="./study-music.mp3">Track 8 - Study Music</option>
+                <option value="./waves.mp3">Track 9 - Ocean Waves</option>
+                <option value="./white-noise.mp3">Track 10 - White Noise</option>
+                <option value="./relaxing-chill.mp3">Track 11 - Relaxing Chill</option>
+                <option value="./deep-focus.mp3">Track 12 - Deep Focus</option>
+                <option value="./forest-ambiance.mp3">Track 13 - Forest Ambiance</option>
+                <option value="./serenity.mp3">Track 14 - Serenity</option>
+                <option value="./ambient-music.mp3">Track 15 - Ambient Music</option>
+            </select>
+            <audio id="music" controls>
+                <source id="audio-source" src="./yoga-music-relax-16182.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        let timerInterval;
+        const timerElement = document.getElementById("timer");
+        const timeInput = document.getElementById("time-input");
+        const musicPlayer = document.getElementById("music");
+        const audioSource = document.getElementById("audio-source");
+        const trackSelector = document.getElementById("track-selector");
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            let timeLeft = Math.min(parseInt(timeInput.value) || 1, 60) * 60;
+            const selectedTrack = trackSelector.value;
+            audioSource.src = selectedTrack;
+            musicPlayer.load();
+            musicPlayer.play();
+
+            timerInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                if (timeLeft === 0) {
+                    clearInterval(timerInterval);
+                    musicPlayer.pause();
+                    musicPlayer.currentTime = 0;
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerElement.textContent = `${Math.min(parseInt(timeInput.value) || 1, 60).toString().padStart(2, '0')}:00`;
+            musicPlayer.pause();
+            musicPlayer.currentTime = 0;
+        }
+
+        document.getElementById("start").addEventListener("click", startTimer);
+        document.getElementById("reset").addEventListener("click", resetTimer);
+    </script>
+</body>
+</html>
