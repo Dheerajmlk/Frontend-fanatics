@@ -1,0 +1,106 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #2A5091; /* Secondary color for text */
+    background-color: #D7D6D9; /* Accent color for background */
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #97959B; /* Primary color for header background */
+    border-bottom: 2px solid #2A5091;
+}
+
+.header .logo img {
+    width: 150px;
+}
+
+.header .navigation a {
+    text-decoration: none;
+    color: #FFFFFF; /* White for contrast */
+    font-size: 18px;
+    margin-left: 20px;
+    transition: color 0.3s;
+}
+
+.header .navigation a:hover {
+    color: #D7D6D9; /* Accent color on hover */
+}
+
+/* Main Content */
+main {
+    padding: 20px 10px;
+    text-align: center;
+}
+
+main h1 {
+    font-size: 36px;
+    color: #2A5091; /* Secondary color */
+    margin-bottom: 20px;
+}
+
+main p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #2A5091;
+}
+
+/* Features Section */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.features article {
+    background-color: #FFFFFF; /* White for cards */
+    border: 1px solid #97959B; /* Primary border */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.features article:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.features h2 {
+    font-size: 22px;
+    color: #2A5091; /* Secondary color */
+    margin-bottom: 10px;
+}
+
+.features p {
+    font-size: 16px;
+    color: #97959B; /* Primary color for feature text */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 10px 0;
+    background-color: #2A5091; /* Secondary color for footer */
+    color: #FFFFFF; /* White for text */
+    font-size: 14px;
+    border-top: 2px solid #97959B;
+}

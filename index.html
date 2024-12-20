@@ -4,31 +4,194 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css">
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #D7D6D9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      width: 400px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #2A5091;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #97959B;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #97959B;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #2A5091;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #1d3a73;
+    }
+
+    .toggle-link {
+      margin-top: 10px;
+      display: block;
+      color: #2A5091;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .toggle-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="main">
-    <div class="background">
-      <div class="logo">
-        <img src="./Logo.png" alt="Logo">
+  <div class="container" id="form-container">
+    <h1>Welcome</h1>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="Enter your email" required>
       </div>
-      <div class="options">
-        <ul>
-          <li><a href="./pomodoro/pomodoro.html">Pomodoro</a></li>
-          <li><a href="./Time_management.html">Management</a></li>
-          <li><a href="./Link_Organizer.html">Link Organizer</a></li>
-          <li><a href="./Goal_Setting.html">Goal Setting</a></li>
-          <li><a href="./meditation/Focus_Timer.html">Focus Timer</a></li>
-          <li><a href="./Google_Calendar.html">Google Calendar</a></li>
-          <li><a href="#">Voice Command</a></li>
-          <li><a href="./Analytics_Dashboard.html">Analytics Dashboard</a></li>
-        </ul>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
       </div>
-    </div>
+      <button type="submit" class="btn">Sign In</button>
+    </form>
+    <a href="#" class="toggle-link" id="toggle-signup">Don’t have an account? Sign up</a>
   </div>
+
+  <script>
+    const formContainer = document.getElementById("form-container");
+    const toggleSignup = document.getElementById("toggle-signup");
+
+    function redirectToHome() {
+      window.location.href = "./homepage/home.html"; // Path to the home.html file
+    }
+
+    toggleSignup.addEventListener("click", (e) => {
+      e.preventDefault();
+      formContainer.innerHTML = `
+        <h1>Create Account</h1>
+        <form id="signup-form">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="signup-email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="signup-password" placeholder="Create a password" required>
+          </div>
+          <button type="submit" class="btn">Sign Up</button>
+        </form>
+        <a href="#" class="toggle-link" id="toggle-signin">Already have an account? Sign in</a>
+      `;
+
+      const signupForm = document.getElementById("signup-form");
+      signupForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = document.getElementById("name").value;
+        const email = document.getElementById("signup-email").value;
+        const password = document.getElementById("signup-password").value;
+
+        fetch('https://time-buddy-eb9ab-default-rtdb.firebaseio.com/users.json', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: username,
+            email: email,
+            password: password
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            alert("Signup successful!");
+            redirectToHome();
+          })
+          .catch(error => {
+            alert("Error: " + error.message);
+          });
+      });
+
+      document.getElementById("toggle-signin").addEventListener("click", (e) => {
+        e.preventDefault();
+        location.reload();
+      });
+    });
+
+    const loginForm = document.getElementById("login-form");
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      fetch('https://time-buddy-eb9ab-default-rtdb.firebaseio.com/users.json')
+        .then(response => response.json())
+        .then(users => {
+          let userFound = false;
+          for (let userID in users) {
+            if (users[userID].email === email && users[userID].password === password) {
+              userFound = true;
+              alert("Signin successful!");
+              redirectToHome();
+              break;
+            }
+          }
+
+          if (!userFound) {
+            alert("Invalid credentials. Please try again.");
+          }
+        })
+        .catch(error => {
+          alert("Error: " + error.message);
+        });
+    });
+  </script>
 </body>
 
 </html>
