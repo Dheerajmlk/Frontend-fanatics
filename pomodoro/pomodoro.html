@@ -24,7 +24,6 @@
             position: absolute;
             top: 0;
             width: 100%;
-            background-color: #2A5091;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
@@ -33,6 +32,8 @@
         }
 
         .navbar .logo img {
+            margin: 10px 0 0 20px;
+
             width: 150px;
             height: auto;
         }
@@ -40,8 +41,11 @@
         .navbar nav a {
             text-decoration: none;
             color: white;
+            background-color: #2A5091;
             font-size: 18px;
             margin: 0 10px;
+            padding: 8px 15px;
+            border-radius: 5px;
             transition: color 0.3s ease;
         }
 
@@ -73,6 +77,7 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
+        /* Updated Button Layout */
         .top-buttons,
         .bottom-buttons {
             display: flex;
@@ -89,6 +94,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease, transform 0.2s ease;
+            outline: none;
         }
 
         button:hover {
@@ -96,8 +102,12 @@
         }
 
         #pomodoro {
-            background-color: #97959B;
+            background-color: #2A5091;
             color: white;
+        }
+
+        #pomodoro:hover {
+            background-color: #1E3A8A;
         }
 
         #short-break {
@@ -105,14 +115,26 @@
             color: #2A5091;
         }
 
+        #short-break:hover {
+            background-color: #B0AEB2;
+        }
+
         #long-break {
             background-color: #2A5091;
             color: white;
         }
 
+        #long-break:hover {
+            background-color: #1E3A8A;
+        }
+
         #reset {
             background-color: #97959B;
             color: white;
+        }
+
+        #reset:hover {
+            background-color: #7F7F7F;
         }
 
         button:focus {

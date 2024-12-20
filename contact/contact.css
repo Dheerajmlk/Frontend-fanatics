@@ -18,7 +18,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #97959B; 
+    background-color: #97959B; /* Primary color for header background */
     border-bottom: 2px solid #2A5091;
 }
 
@@ -28,14 +28,14 @@ body {
 
 .header .navigation a {
     text-decoration: none;
-    color: #FFFFFF; 
+    color: #FFFFFF; /* White for contrast */
     font-size: 18px;
     margin-left: 20px;
     transition: color 0.3s;
 }
 
 .header .navigation a:hover {
-    color: #D7D6D9; 
+    color: #D7D6D9; /* Accent color on hover */
 }
 
 

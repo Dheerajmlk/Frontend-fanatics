@@ -1,20 +1,57 @@
-:root {
-    --primary-blue: #2B4C8C;
-    --light-blue: #E8EBF2;
-    --medium-gray: #757575;
-    --light-gray: #F5F5F5;
-}
-
 body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: var(--light-gray);
+    background-color: #F5F5F5;
     margin: 0;
     padding: 40px;
     min-height: 100vh;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #2B4C8C;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo-img {
+    height: auto; /* Adjust the size of the logo */
+    width: 170px;
+}
+
+.navbar .menu {
+    display: flex;
+    gap: 24px;
+}
+
+.navbar .menu a {
+    padding: 12px 24px;
+    background-color: #2B4C8C;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.navbar .menu button:hover {
+    background-color: #1a366d;
+    transform: translateY(-1px);
 }
 
 .calendar {
@@ -36,7 +73,7 @@ body {
 
 .calendar-header button {
     padding: 12px 24px;
-    background-color: var(--primary-blue);
+    background-color: #2B4C8C;
     color: white;
     border: none;
     border-radius: 6px;
@@ -51,7 +88,7 @@ body {
 }
 
 .calendar-header h2 {
-    color: var(--primary-blue);
+    color: #2B4C8C;
     font-size: 24px;
     margin: 0;
 }
@@ -62,7 +99,7 @@ body {
     gap: 8px;
     margin-bottom: 8px;
     font-weight: bold;
-    color: var(--primary-blue);
+    color: #2B4C8C;
 }
 
 .weekdays div {
@@ -83,7 +120,7 @@ body {
     padding: 12px;
     display: flex;
     flex-direction: column;
-    background-color: var(--light-gray);
+    background-color: #F5F5F5;
     border-radius: 8px;
     cursor: pointer;
     position: relative;
@@ -91,7 +128,7 @@ body {
 }
 
 .calendar-cell:hover {
-    background-color: var(--light-blue);
+    background-color: #E8EBF2;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(43, 76, 140, 0.15);
 }
@@ -99,16 +136,16 @@ body {
 .calendar-cell .date-number {
     font-size: 16px;
     font-weight: bold;
-    color: var(--primary-blue);
+    color: #2B4C8C;
     margin-bottom: 8px;
 }
 
 .calendar-cell.today {
-    border: 2px solid var(--primary-blue);
+    border: 2px solid #2B4C8C;
 }
 
 .calendar-cell.today .date-number {
-    background-color: var(--primary-blue);
+    background-color: #2B4C8C;
     color: white;
     width: 24px;
     height: 24px;
@@ -126,7 +163,7 @@ body {
 }
 
 .task-indicator {
-    background-color: var(--primary-blue);
+    background-color: #2B4C8C;
     color: white;
     font-size: 11px;
     padding: 4px 8px;
@@ -147,7 +184,7 @@ body {
     position: absolute;
     top: 8px;
     right: 8px;
-    background-color: var(--primary-blue);
+    background-color: #2B4C8C;
     color: white;
     font-size: 11px;
     font-weight: bold;
@@ -171,7 +208,7 @@ body {
 
 .task-form h3,
 .task-details h3 {
-    color: var(--primary-blue);
+    color: #2B4C8C;
     margin-top: 0;
     margin-bottom: 20px;
 }
@@ -179,7 +216,7 @@ body {
 input, textarea {
     margin-bottom: 16px;
     padding: 12px;
-    border: 2px solid var(--light-blue);
+    border: 2px solid #E8EBF2;
     border-radius: 6px;
     width: 100%;
     box-sizing: border-box;
@@ -188,7 +225,7 @@ input, textarea {
 
 input:focus, textarea:focus {
     outline: none;
-    border-color: var(--primary-blue);
+    border-color: #2B4C8C;
 }
 
 .form-row {
@@ -198,7 +235,7 @@ input:focus, textarea:focus {
 }
 
 button[type="submit"] {
-    background-color: var(--primary-blue);
+    background-color: #2B4C8C;
     color: white;
     border: none;
     padding: 12px 24px;
@@ -223,7 +260,7 @@ button[type="submit"]:hover {
 }
 
 .task-item {
-    background-color: var(--light-blue);
+    background-color: #E8EBF2;
     margin-bottom: 12px;
     padding: 16px;
     border-radius: 8px;
@@ -237,18 +274,18 @@ button[type="submit"]:hover {
 
 .task-time {
     font-size: 14px;
-    color: var(--medium-gray);
+    color: #757575;
     margin-bottom: 4px;
 }
 
 .task-name {
     font-size: 16px;
     font-weight: bold;
-    color: var(--primary-blue);
+    color: #2B4C8C;
     margin-bottom: 4px;
 }
 
 .task-description {
     font-size: 14px;
-    color: var(--medium-gray);
+    color: #757575;
 }
