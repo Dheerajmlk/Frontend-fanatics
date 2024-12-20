@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Organizer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo-container">
+          <img src="Logo.png" alt="Logo" id="logo" />
+          <a href="home.html" id="home-link">Home</a>
+        </div>
+        <h1>Link Organizer</h1>
+      </header>
+      <div class="add-link-form">
+        <input type="text" id="link" placeholder="Enter Link URL" required />
+        <input
+          type="text"
+          id="category"
+          placeholder="Enter Category"
+          required
+        />
+        <button onclick="addLink()">Add Link</button>
+      </div>
+      <div id="link-sections" class="link-sections"></div>
+      <div id="favorite-section">
+        <h2>Favorites</h2>
+        <div id="favorite-links" class="link-sections"></div>
+      </div>
+      <button onclick="openAllLinks()">Open All Links</button>
+    </div>
+    <script src="script.js"></script>
+     
+  </body>
+</html>
