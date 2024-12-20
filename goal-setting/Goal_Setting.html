@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Goal Tracker with History</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Goal Tracker</h1>
+            <p>Track your goals and celebrate achievements!</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('active')">Active Goals</button>
+            <button class="tab" onclick="switchTab('completed')">Completed Goals</button>
+        </div>
+
+        <div id="activeGoals" class="tab-content active">
+            <div class="add-goal-form">
+                <div class="form-group">
+                    <label for="goalTitle">Goal Title</label>
+                    <input type="text" id="goalTitle" placeholder="What do you want to achieve?">
+                </div>
+                <div class="form-group">
+                    <label for="goalDescription">Description</label>
+                    <textarea id="goalDescription" placeholder="Break down your goal..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="goalDeadline">Deadline</label>
+                    <input type="date" id="goalDeadline">
+                </div>
+                <button class="btn btn-primary" onclick="addGoal()">Add New Goal</button>
+            </div>
+            <div id="goalsList"></div>
+        </div>
+
+        <div id="completedGoals" class="tab-content">
+            <div id="completedGoalsList"></div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+<script src="./script.js"></script>

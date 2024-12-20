@@ -1,4 +1,4 @@
-// app.js
+
 const prevMonthButton = document.getElementById('prev-month');
 const nextMonthButton = document.getElementById('next-month');
 const calendarGrid = document.getElementById('calendar-grid');
@@ -12,10 +12,7 @@ const taskDetails = document.getElementById('task-details');
 const taskList = document.getElementById('task-list');
 const selectedDateElement = document.getElementById('selected-date');
 
-// Store tasks by date
 let tasks = {};
-
-// Get the current month and year
 let currentDate = new Date();
 
 function renderCalendar() {
@@ -23,34 +20,61 @@ function renderCalendar() {
     const year = currentDate.getFullYear();
     monthYear.textContent = `${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
 
-    // Clear previous grid
     calendarGrid.innerHTML = '';
 
-    // Get the first day of the month and number of days in the month
     const firstDayOfMonth = new Date(year, month, 1).getDay();
     const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
 
-    // Fill the calendar grid with days
     for (let i = 0; i < firstDayOfMonth; i++) {
         const emptyCell = document.createElement('div');
+        emptyCell.classList.add('calendar-cell');
         calendarGrid.appendChild(emptyCell);
     }
 
     for (let day = 1; day <= lastDateOfMonth; day++) {
         const cell = document.createElement('div');
         cell.classList.add('calendar-cell');
-        cell.textContent = day;
 
-        const dateKey = `${year}-${month + 1}-${day}`;
-        if (tasks[dateKey]) {
-            const taskDot = document.createElement('div');
-            taskDot.classList.add('task-dot');
-            cell.appendChild(taskDot);
+        const dateNumber = document.createElement('div');
+        dateNumber.classList.add('date-number');
+        dateNumber.textContent = day;
+
+        if (today.getDate() === day && 
+            today.getMonth() === month && 
+            today.getFullYear() === year) {
+            cell.classList.add('today');
         }
 
-        // Add click event to open tasks for that day
-        cell.addEventListener('click', () => showTasksForDay(year, month, day));
+        const taskIndicators = document.createElement('div');
+        taskIndicators.classList.add('task-indicators');
 
+        const dateKey = `${year}-${month + 1}-${day}`;
+        if (tasks[dateKey] && tasks[dateKey].length > 0) {
+            const taskCount = document.createElement('div');
+            taskCount.classList.add('task-count');
+            taskCount.textContent = tasks[dateKey].length;
+            cell.appendChild(taskCount);
+
+            tasks[dateKey].slice(0, 2).forEach(task => {
+                const taskIndicator = document.createElement('div');
+                taskIndicator.classList.add('task-indicator');
+                taskIndicator.textContent = task.name;
+                taskIndicators.appendChild(taskIndicator);
+            });
+
+            if (tasks[dateKey].length > 2) {
+                const moreIndicator = document.createElement('div');
+                moreIndicator.classList.add('task-indicator');
+                moreIndicator.style.backgroundColor = '#666';
+                moreIndicator.textContent = `+${tasks[dateKey].length - 2} more`;
+                taskIndicators.appendChild(moreIndicator);
+            }
+        }
+
+        cell.appendChild(dateNumber);
+        cell.appendChild(taskIndicators);
+        cell.addEventListener('click', () => showTasksForDay(year, month, day));
         calendarGrid.appendChild(cell);
     }
 }
@@ -58,10 +82,15 @@ function renderCalendar() {
 function showTasksForDay(year, month, day) {
     const dateKey = `${year}-${month + 1}-${day}`;
     const tasksForDay = tasks[dateKey] || [];
-    selectedDateElement.textContent = `${month + 1}/${day}/${year}`;
-    taskList.innerHTML = '';
+    const date = new Date(year, month, day);
+    selectedDateElement.textContent = date.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 
-    // Sort tasks by time
+    taskList.innerHTML = '';
     tasksForDay.sort((a, b) => a.time.localeCompare(b.time));
 
     tasksForDay.forEach(task => {
@@ -85,11 +114,8 @@ function showTasksForDay(year, month, day) {
         taskItem.appendChild(taskDescription);
         taskList.appendChild(taskItem);
     });
-
-    taskDetails.style.display = 'block';
 }
 
-// Handle adding a task
 taskForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -99,26 +125,19 @@ taskForm.addEventListener('submit', (e) => {
     const newTask = {
         name: taskName.value,
         description: taskDescription.value,
-        time: taskTime.value, // Add the time for the task
+        time: taskTime.value,
         date: taskDateKey
     };
 
-    // Save task to tasks object
     if (!tasks[taskDateKey]) {
         tasks[taskDateKey] = [];
     }
     tasks[taskDateKey].push(newTask);
 
-    // Clear the form
-    taskName.value = '';
-    taskDescription.value = '';
-    taskDate.value = '';
-    taskTime.value = '';
-
+    taskForm.reset();
     renderCalendar();
 });
 
-// Navigation between months
 prevMonthButton.addEventListener('click', () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
     renderCalendar();
@@ -129,5 +148,4 @@ nextMonthButton.addEventListener('click', () => {
     renderCalendar();
 });
 
-// Initialize the calendar
 renderCalendar();
