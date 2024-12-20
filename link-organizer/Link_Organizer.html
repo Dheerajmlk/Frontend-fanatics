@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Link Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <header>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <header class="header">
         <div class="logo-container">
-          <img src="Logo.png" alt="Logo" id="logo" />
-          <a href="home.html" id="home-link">Home</a>
+            <img src="../homepage/Logo.png" alt="Logo" id="logo" />
         </div>
-        <h1>Link Organizer</h1>
-      </header>
-      <div class="add-link-form">
-        <input type="text" id="link" placeholder="Enter Link URL" required />
-        <input
-          type="text"
-          id="category"
-          placeholder="Enter Category"
-          required
-        />
-        <button onclick="addLink()">Add Link</button>
-      </div>
-      <div id="link-sections" class="link-sections"></div>
-      <div id="favorite-section">
-        <h2>Favorites</h2>
-        <div id="favorite-links" class="link-sections"></div>
-      </div>
-      <button onclick="openAllLinks()">Open All Links</button>
+        <nav class="navigation">
+            <a href="../homepage/home.html">Home</a>
+            <a href="../about/about.html">About</a>
+            <a href="../contact/contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="add-link-form">
+            <input type="text" id="link" placeholder="Enter Link URL" required />
+            <input type="text" id="category" placeholder="Enter Category" required />
+            <button onclick="addLink()">Add Link</button>
+        </div>
+        <div id="link-sections" class="link-sections"></div>
+        <div id="favorite-section">
+            <h2>Favorites</h2>
+            <div id="favorite-links" class="link-sections"></div>
+        </div>
+        <button onclick="openAllLinks()">Open All Links</button>
     </div>
+
+    <footer>
+        <p>© 2024 Time Buddy. All rights reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
-     
-  </body>
+</body>
+
 </html>
