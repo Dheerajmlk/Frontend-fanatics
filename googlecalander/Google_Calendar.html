@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Calendar</title>
-    <link rel="stylesheet" href="styles.css">
+ <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <div class="calendar">
@@ -13,25 +13,38 @@
             <h2 id="month-year"></h2>
             <button id="next-month">Next</button>
         </div>
+        <div class="weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
         <div class="calendar-grid" id="calendar-grid"></div>
     </div>
 
     <div class="task-form">
-        <h3>Add Task</h3>
+        <h3>Add New Task</h3>
         <form id="task-form">
             <input type="text" id="task-name" placeholder="Task Name" required>
-            <textarea id="task-description" placeholder="Task Description" required></textarea>
-            <input type="date" id="task-date" required>
-            <input type="time" id="task-time" required>
+            <textarea id="task-description" placeholder="Task Description" rows="3" required></textarea>
+            <div class="form-row">
+                <input type="date" id="task-date" required>
+                <input type="time" id="task-time" required>
+            </div>
             <button type="submit">Add Task</button>
         </form>
     </div>
 
-    <div id="task-details" class="task-details">
-        <h3>Schedule for <span id="selected-date"></span></h3>
+    <div class="task-details">
+        <h3>Tasks for <span id="selected-date"></span></h3>
         <div id="task-list"></div>
     </div>
 
-    <script src="script.js"></script>
+
 </body>
 </html>
+
+<script src="./script.js"></script>
