@@ -19,23 +19,35 @@
             position: relative;
         }
 
-        .logo {
+        /* Navigation Bar */
+        .navbar {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 0;
+            width: 100%;
+            background-color: #2A5091;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .logo img {
-            width: 200px;
+        .navbar .logo img {
+            width: 150px;
             height: auto;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
         }
 
-        /* .logo img:hover {
-            transform: scale(1.1);
-        } */
+        .navbar nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar nav a:hover {
+            color: #D7D6D9;
+        }
 
         .main {
             background: rgba(255, 255, 255, 0.9);
@@ -114,9 +126,17 @@
 </head>
 
 <body>
-    <div class="logo">
-        <a href="../homepage/home.html"><img src="../homepage/Logo.png" alt="Logo"></a>
+    <div class="navbar">
+        <div class="logo">
+            <a href="../homepage/home.html"><img src="../homepage/Logo.png" alt="Logo"></a>
+        </div>
+        <nav>
+            <a href="../homepage/home.html">Home</a>
+            <a href="../about/about.html">About</a>
+            <a href="../contact/contact.html">Contact</a>
+        </nav>
     </div>
+
     <div class="main">
         <h1>Pomodoro Timer</h1>
         <div class="top-buttons">
@@ -131,6 +151,7 @@
         </div>
         <audio id="alarm" src="../old_alarm_sound.mp3"></audio>
     </div>
+
     <script>
         let timerInterval;
         let timeLeft;
