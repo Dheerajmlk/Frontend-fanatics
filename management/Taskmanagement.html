@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="taskmanagement.css">
+</head>
+
+<body>
+
+    <header>
+        <div id="header">
+            <img src="logo.png" alt="Logo" id="logo">
+            <a href="/" id="home-link">Home</a>
+        </div>
+    </header>
+
+    <h1>Welcome to the Task Manager page of Time Buddy</h1>
+
+    <div id="task-manager">
+        <form id="task-form">
+            <input type="text" id="task-name" placeholder="Task Name" required><br>
+            <textarea id="task-description" placeholder="Task Description" required></textarea><br>
+            <select id="task-priority">
+                <option value="high">High Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="low">Low Priority</option>
+            </select><br>
+            <input type="date" id="task-due-date" required><br>
+            <button type="submit">Add Task</button><br>
+        </form>
+    </div>
+
+    <div id="task-sections">
+        <div id="high-priority-section" class="task-section">
+            <h2>High Priority</h2>
+            <ul id="high-priority-list"></ul>
+        </div>
+        <div id="medium-priority-section" class="task-section">
+            <h2>Medium Priority</h2>
+            <ul id="medium-priority-list"></ul>
+        </div>
+        <div id="low-priority-section" class="task-section">
+            <h2>Low Priority</h2>
+            <ul id="low-priority-list"></ul>
+        </div>
+        <div id="overdue-section" class="task-section">
+            <h2>Overdue Tasks</h2>
+            <ul id="overdue-list"></ul>
+        </div>
+    </div>
+
+    <div id="points-section">
+        <h3>Total Points: <span id="points">0</span></h3>
+        <button id="reset-points" onclick="resetPoints()">Reset Points</button>
+    </div>
+
+    <script src="taskmanagement.js"></script>
+</body>
+
+</html>

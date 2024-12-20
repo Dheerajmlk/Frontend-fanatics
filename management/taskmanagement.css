@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(45deg, #D7D6D9, #97959B);
+    color: #333;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(45deg, #D7D6D9, #97959B);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+}
+
+#logo {
+    height: 60px;
+    margin-right: 10px;
+}
+
+#home-link {
+    font-size: 1.2rem;
+    color: #2A5091;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#home-link:hover {
+    color: #4caf50;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #2A5091;
+}
+
+#task-manager {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#task-form input,
+#task-form textarea,
+#task-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+#task-form button {
+    background-color: #2A5091;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+#task-form button:hover {
+    background-color: #1d3f6e;
+}
+
+#task-sections {
+    margin-top: 30px;
+}
+
+.task-section {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-section h2 {
+    font-size: 1.5rem;
+    color: #2A5091;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+li:hover {
+    background-color: #f1f1f1;
+    transform: translateX(5px);
+}
+
+li .task-name {
+    font-weight: bold;
+}
+
+li .task-priority {
+    font-style: italic;
+    color: #777;
+}
+
+li .task-status {
+    font-weight: bold;
+    color: #333;
+}
+
+button {
+    background-color: #2A5091;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1d3f6e;
+}
+
+button:disabled {
+    background-color: #D7D6D9;
+    cursor: not-allowed;
+}
+
+.high {
+    background-color: #ff5722;
+    color: white;
+}
+
+.medium {
+    background-color: #ff9800;
+    color: white;
+}
+
+.low {
+    background-color: #8bc34a;
+    color: white;
+}
+
+.completed {
+    background-color: #4caf50;
+    color: white;
+}
+
+.overdue {
+    background-color: #f44336;
+    color: white;
+}
+
+#points-section {
+    text-align: center;
+    margin-top: 30px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#points-section h3 {
+    font-size: 1.5rem;
+    color: #2A5091;
+}
+
+#points {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2A5091;
+}
+
+#reset-points {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+#reset-points:hover {
+    background-color: #e53935;
+}
+
+@media (max-width: 768px) {
+    #task-manager {
+        width: 90%;
+    }
+
+    .task-section {
+        padding: 15px;
+    }
+
+    .task-section h2 {
+        font-size: 1.2rem;
+    }
+
+    li {
+        font-size: 0.9rem;
+    }
+
+    #points-section h3 {
+        font-size: 1.2rem;
+    }
+}
