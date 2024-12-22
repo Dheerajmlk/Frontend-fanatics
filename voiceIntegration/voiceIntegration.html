@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Voice Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .voice-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        #micButton {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #3498db;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        #micButton:hover {
+            transform: scale(1.05);
+            box-shadow: 0 7px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        #micButton.recording {
+            background: #e74c3c;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #status {
+            text-align: center;
+            padding: 15px;
+            margin: 15px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .wave-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+            gap: 3px;
+            margin: 10px 0;
+        }
+
+        .wave {
+            width: 3px;
+            height: 100%;
+            background-color: #3498db;
+            animation: wave 1s infinite ease-in-out;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.2); }
+            50% { transform: scaleY(1); }
+        }
+
+        .response-area {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .command-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .command-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            transition: transform 0.2s;
+        }
+
+        .command-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .command-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .command-example {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .notes-container {
+            margin-top: 20px;
+        }
+
+        .note-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-note {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .error {
+            background: #fee;
+            color: #e74c3c;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Voice Assistant</h1>
+            <p>Say "Hey Assistant" or click the button to start</p>
+        </div>
+
+        <div class="voice-box">
+            <div id="status">Ready to help!</div>
+            <button id="micButton">🎤</button>
+            <div id="waveform" class="wave-container"></div>
+        </div>
+
+        <div class="response-area">
+            <h3>Try these commands:</h3>
+            <div class="command-list">
+                <div class="command-card">
+                    <div class="command-title">🕒 Time</div>
+                    <div class="command-example">"What's the time?"</div>
+                </div>
+                <div class="command-card">
+                    <div class="command-title">📝 Notes</div>
+                    <div class="command-example">"Remember this: [your note]"</div>
+                </div>
+                <div class="command-card">
+                    <div class="command-title">🧮 Calculator</div>
+                    <div class="command-example">"What's 5 plus 3?"</div>
+                </div>
+                <div class="command-card">
+                    <div class="command-title">🎲 Games</div>
+                    <div class="command-example">"Roll a dice" or "Flip a coin"</div>
+                </div>
+            </div>
+            
+            <div id="response" class="notes-container"></div>
+        </div>
+    </div>
+
+    <script>
+        class VoiceAssistant {
+            constructor() {
+                if ('speechSynthesis' in window) {
+                    // Prime the speech synthesis
+                    window.speechSynthesis.getVoices();
+                    // Force load voices in Chrome
+                    window.speechSynthesis.onvoiceschanged = () => {
+                        window.speechSynthesis.getVoices();
+                    };
+                } else {
+                    console.error('Speech synthesis not supported');
+                }
+                this.recognition = null;
+                this.isListening = false;
+                this.isWaitingForCommand = false;
+                this.notes = [];
+                this.lastWakeWordTime = 0;
+                this.WAKE_WORD_COOLDOWN = 2000;
+                this.commandTimeout = null;
+                
+                this.initializeElements();
+                this.setupVoiceRecognition();
+                this.setupEventListeners();
+            }
+
+            initializeElements() {
+                this.micButton = document.getElementById('micButton');
+                this.status = document.getElementById('status');
+                this.response = document.getElementById('response');
+                this.waveform = document.getElementById('waveform');
+            }
+
+            setupVoiceRecognition() {
+                try {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    this.recognition = new SpeechRecognition();
+                    this.recognition.continuous = true;
+                    this.recognition.interimResults = false;
+                    this.recognition.lang = 'en-US';
+                    
+                    this.setupRecognitionHandlers();
+                } catch (e) {
+                    this.showError("Speech recognition not supported. Please use Chrome browser.");
+                }
+            }
+
+            setupRecognitionHandlers() {
+                this.recognition.onstart = () => {
+                    this.isListening = true;
+                    this.updateUI(true);
+                    console.log('Recognition started');
+                };
+
+                this.recognition.onresult = (event) => {
+                    const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
+                    console.log('Transcript:', transcript);
+
+                    if (this.isWakeWord(transcript)) {
+                        const now = Date.now();
+                        if (now - this.lastWakeWordTime > this.WAKE_WORD_COOLDOWN) {
+                            this.lastWakeWordTime = now;
+                            this.isWaitingForCommand = true;
+                            this.speak("I'm listening!");
+                            
+                            // Reset recognition to prepare for command
+                            this.recognition.stop();
+                            setTimeout(() => {
+                                this.recognition.start();
+                            }, 1000);
+
+                            // Set timeout for command
+                            if (this.commandTimeout) {
+                                clearTimeout(this.commandTimeout);
+                            }
+                            this.commandTimeout = setTimeout(() => {
+                                if (this.isWaitingForCommand) {
+                                    this.isWaitingForCommand = false;
+                                    this.speak("I didn't catch that. Please try again.");
+                                }
+                            }, 5000);
+                        }
+                    } else if (this.isWaitingForCommand) {
+                        clearTimeout(this.commandTimeout);
+                        this.handleCommand(transcript);
+                        this.isWaitingForCommand = false;
+                        
+                        // Reset recognition after handling command
+                        setTimeout(() => {
+                            this.recognition.stop();
+                            setTimeout(() => {
+                                this.recognition.start();
+                            }, 1000);
+                        }, 1000);
+                    }
+                };
+
+                this.recognition.onerror = (event) => {
+                    console.error('Recognition error:', event.error);
+                    if (event.error === 'no-speech') {
+                        this.restartRecognition();
+                    }
+                };
+
+                this.recognition.onend = () => {
+                    console.log('Recognition ended');
+                    if (this.isListening) {
+                        this.restartRecognition();
+                    } else {
+                        this.updateUI(false);
+                    }
+                };
+            }
+
+            setupEventListeners() {
+                this.micButton.onclick = () => {
+                    this.toggleListening();
+                    if (!this.isListening) {
+                        this.isWaitingForCommand = true;
+                        this.speak("I'm listening!");
+                        
+                        if (this.commandTimeout) {
+                            clearTimeout(this.commandTimeout);
+                        }
+                        this.commandTimeout = setTimeout(() => {
+                            if (this.isWaitingForCommand) {
+                                this.isWaitingForCommand = false;
+                                this.speak("I didn't catch that. Please try again.");
+                            }
+                        }, 5000);
+                    }
+                };
+            }
+
+            toggleListening() {
+                if (this.isListening) {
+                    this.stopListening();
+                } else {
+                    this.startListening();
+                }
+            }
+
+            startListening() {
+                try {
+                    this.recognition.start();
+                    this.updateUI(true);
+                } catch (e) {
+                    console.error('Start error:', e);
+                    this.setupVoiceRecognition();
+                    setTimeout(() => {
+                        this.recognition?.start();
+                    }, 100);
+                }
+            }
+
+            stopListening() {
+                this.recognition?.stop();
+                this.isListening = false;
+                this.isWaitingForCommand = false;
+                if (this.commandTimeout) {
+                    clearTimeout(this.commandTimeout);
+                }
+                this.updateUI(false);
+            }
+
+            restartRecognition() {
+                try {
+                    setTimeout(() => {
+                        this.recognition.start();
+                    }, 100);
+                } catch (e) {
+                    console.error('Restart error:', e);
+                    this.updateUI(false);
+                }
+            }
+
+            updateUI(isRecording) {
+                this.micButton.classList.toggle('recording', isRecording);
+                this.status.textContent = isRecording ? '🎤 Listening...' : 'Ready to help!';
+                this.waveform.innerHTML = isRecording ? Array(5).fill('<div class="wave"></div>').join('') : '';
+            }
+
+            async speak(text) {
+
+                console.log('Speaking:', text);
+                
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+            
+                // Create and configure utterance
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 1.0;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+                utterance.lang = 'en-US';
+                
+                // Stop recognition while speaking
+                if (this.recognition) {
+                    this.recognition.stop();
+                }
+            
+                try {
+                    // Ensure voices are loaded
+                    let voices = window.speechSynthesis.getVoices();
+                    if (!voices.length) {
+                        await new Promise(resolve => {
+                            window.speechSynthesis.onvoiceschanged = () => {
+                                voices = window.speechSynthesis.getVoices();
+                                resolve();
+                            };
+                        });
+                    }
+            
+                    // Select English voice
+                    const englishVoice = voices.find(voice => 
+                        voice.lang.includes('en') && !voice.lang.includes('GB')
+                    );
+                    if (englishVoice) {
+                        utterance.voice = englishVoice;
+                    }
+            
+                    // Speak the text
+                    window.speechSynthesis.speak(utterance);
+                    this.status.textContent = text;
+            
+                    // Wait for speech to complete then restart recognition
+                    utterance.onend = () => {
+                        setTimeout(() => {
+                            if (this.recognition && this.isListening) {
+                                this.recognition.start();
+                            }
+                        }, 100);
+                    };
+            
+                    // Handle any errors
+                    utterance.onerror = (event) => {
+                        console.error('Speech synthesis error:', event);
+                        this.status.textContent = "Sorry, I couldn't speak that response.";
+                        if (this.recognition && this.isListening) {
+                            this.recognition.start();
+                        }
+                    };
+            
+                } catch (error) {
+                    console.error('Speech synthesis setup error:', error);
+                    this.status.textContent = text; // Fallback to just showing the text
+                    if (this.recognition && this.isListening) {
+                        this.recognition.start();
+                    }
+                }
+            }
+
+            isWakeWord(text) {
+                const wakeWords = ['hey assistant', 'hi assistant', 'hello assistant', 'okay assistant'];
+                return wakeWords.some(word => text.includes(word));
+            }
+
+            handleCommand(text) {
+                console.log('Handling command:', text);
+    
+                // Ensure we have a command to process
+                if (!text || text.trim().length === 0) {
+                    this.speak("I didn't catch that. Could you please repeat?");
+                    return;
+                }
+                const matches = (patterns) => patterns.some(p => text.includes(p));
+              
+                if (matches(['what time', 'what is the time', 'tell me the time', 'current time'])) {
+                    const now = new Date();
+                    this.speak(`It's ${now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`);
+                    return;
+                }
+              
+                if (matches(['remember this', 'write this down', 'make a note', 'take a note'])) {
+                    const noteText = text.replace(/remember this|write this down|make a note|take a note/i, '').trim();
+                    if (noteText) {
+                        this.notes.push(noteText);
+                        this.updateNotes();
+                        this.speak(`I've saved your note: ${noteText}`);
+                    } else {
+                        this.speak("Please say the note clearly after 'remember this'");
+                    }
+                    return;
+                }
+              
+                const mathRegex = /what(?:'s| is)?\s*(-?\d+(?:\.\d+)?)\s*(plus|\+|minus|-|times|\*|divided by|\/)\s*(-?\d+(?:\.\d+)?)/;
+                const mathMatch = text.match(mathRegex);
+              
+                if (mathMatch) {
+                    const num1 = parseFloat(mathMatch[1]);
+                    const operator = mathMatch[2];
+                    const num2 = parseFloat(mathMatch[3]);
+                    let result;
+              
+                    switch (operator) {
+                        case 'plus':
+                        case '+':
+                            result = num1 + num2;
+                            break;
+                        case 'minus':
+                        case '-':
+                            result = num1 - num2;
+                            break;
+                        case 'times':
+                        case '*':
+                            result = num1 * num2;
+                            break;
+                        case 'divided by':
+                        case '/':
+                            if (num2 !== 0) {
+                                result = num1 / num2;
+                            } else {
+                                this.speak("Division by zero is not allowed.");
+                                return;
+                            }
+                            break;
+                        default:
+                            this.speak("I don't understand that operation. Please try using plus, minus, times, or divided by.");
+                            return;
+                    }
+                    
+                    this.speak(`The result is ${result}`);
+                    return;
+                }
+                
+                if (matches(['roll a dice', 'roll a die', 'throw a dice'])) {
+                    const diceRoll = Math.floor(Math.random() * 6) + 1;
+                    this.speak(`You rolled a ${diceRoll}`);
+                    return;
+                }
+                
+                if (matches(['flip a coin', 'toss a coin'])) {
+                    const coinFlip = Math.random() < 0.5 ? 'heads' : 'tails';
+                    this.speak(`The coin landed on ${coinFlip}`);
+                    return;
+                }
+                
+                this.speak("I'm not sure how to help with that. Please try one of the commands shown below.");
+            }
+
+            updateNotes() {
+                this.response.innerHTML = this.notes.map((note, index) => `
+                    <div class="note-item">
+                        <span>${note}</span>
+                        <button class="delete-note" onclick="assistant.deleteNote(${index})">Delete</button>
+                    </div>
+                `).join('');
+            }
+
+            deleteNote(index) {
+                this.notes.splice(index, 1);
+                this.updateNotes();
+                this.speak("Note deleted.");
+            }
+
+            showError(message) {
+                this.status.innerHTML = `<div class="error">${message}</div>`;
+            }
+        }
+
+        // Initialize the assistant
+        const assistant = new VoiceAssistant();
+    </script>
+</body>
+</html>
