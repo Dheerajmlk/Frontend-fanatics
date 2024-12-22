@@ -269,9 +269,9 @@
         class VoiceAssistant {
             constructor() {
                 if ('speechSynthesis' in window) {
-                    // Prime the speech synthesis
+
                     window.speechSynthesis.getVoices();
-                    // Force load voices in Chrome
+
                     window.speechSynthesis.onvoiceschanged = () => {
                         window.speechSynthesis.getVoices();
                     };
@@ -330,13 +330,12 @@
                             this.isWaitingForCommand = true;
                             this.speak("I'm listening!");
 
-                            // Reset recognition to prepare for command
                             this.recognition.stop();
                             setTimeout(() => {
                                 this.recognition.start();
                             }, 1000);
 
-                            // Set timeout for command
+
                             if (this.commandTimeout) {
                                 clearTimeout(this.commandTimeout);
                             }
@@ -352,7 +351,7 @@
                         this.handleCommand(transcript);
                         this.isWaitingForCommand = false;
 
-                        // Reset recognition after handling command
+
                         setTimeout(() => {
                             this.recognition.stop();
                             setTimeout(() => {
@@ -451,23 +450,21 @@
 
                 console.log('Speaking:', text);
 
-                // Cancel any ongoing speech
+
                 window.speechSynthesis.cancel();
 
-                // Create and configure utterance
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.rate = 1.0;
                 utterance.pitch = 1.0;
                 utterance.volume = 1.0;
                 utterance.lang = 'en-US';
 
-                // Stop recognition while speaking
+
                 if (this.recognition) {
                     this.recognition.stop();
                 }
 
                 try {
-                    // Ensure voices are loaded
                     let voices = window.speechSynthesis.getVoices();
                     if (!voices.length) {
                         await new Promise(resolve => {
@@ -478,7 +475,6 @@
                         });
                     }
 
-                    // Select English voice
                     const englishVoice = voices.find(voice =>
                         voice.lang.includes('en') && !voice.lang.includes('GB')
                     );
@@ -486,11 +482,10 @@
                         utterance.voice = englishVoice;
                     }
 
-                    // Speak the text
+
                     window.speechSynthesis.speak(utterance);
                     this.status.textContent = text;
 
-                    // Wait for speech to complete then restart recognition
                     utterance.onend = () => {
                         setTimeout(() => {
                             if (this.recognition && this.isListening) {
@@ -498,8 +493,6 @@
                             }
                         }, 100);
                     };
-
-                    // Handle any errors
                     utterance.onerror = (event) => {
                         console.error('Speech synthesis error:', event);
                         this.status.textContent = "Sorry, I couldn't speak that response.";
@@ -510,7 +503,7 @@
 
                 } catch (error) {
                     console.error('Speech synthesis setup error:', error);
-                    this.status.textContent = text; // Fallback to just showing the text
+                    this.status.textContent = text; 
                     if (this.recognition && this.isListening) {
                         this.recognition.start();
                     }
@@ -524,8 +517,6 @@
 
             handleCommand(text) {
                 console.log('Handling command:', text);
-
-                // Ensure we have a command to process
                 if (!text || text.trim().length === 0) {
                     this.speak("I didn't catch that. Could you please repeat?");
                     return;
@@ -624,8 +615,6 @@
                 this.status.innerHTML = `<div class="error">${message}</div>`;
             }
         }
-
-        // Initialize the assistant
         const assistant = new VoiceAssistant();
     </script>
 </body>

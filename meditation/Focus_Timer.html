@@ -20,39 +20,42 @@
 
         .navigation-bar {
             position: absolute;
-            top: 20px;
-            right: 30px;
+            top: 0;
+            width: 100%;
             display: flex;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2A5091;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 100;
+        }
+
+        .navigation-bar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navigation-bar .logo img {
+            width: 150px;
+            height: auto;
+            border-radius: 5px;
+            background: none;
         }
 
         .navigation-bar a {
             text-decoration: none;
             color: white;
             font-size: 18px;
-            padding: 10px 20px;
-            background: #2A5091;
+            margin: 0 10px;
+            padding: 8px 15px;
+            background: #1E3A8A;
             border-radius: 5px;
             transition: background 0.3s;
         }
 
         .navigation-bar a:hover {
-            background: #1E3A8A;
-        }
-
-        .logo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-
-        .logo img {
-            width: 200px;
-            height: auto;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            background: #163060;
         }
 
         .container {
@@ -133,15 +136,17 @@
 
 <body>
     <div class="navigation-bar">
-        <a href="../homepage/home.html">Home</a>
-        <a href="../about/about.html">About</a>
-        <a href="../contact/contact.html">Contact</a>
+        <div class="logo">
+            <img src="../homepage/Logo.png" alt="Logo">
+        </div>
+        <div>
+            <a href="../homepage/home.html">Home</a>
+            <a href="../about/about.html">About</a>
+            <a href="../contact/contact.html">Contact</a>
+        </div>
     </div>
 
     <div class="container">
-        <div class="logo">
-            <a href="../homepage/home.html"><img src="../homepage/Logo.png" alt="Logo"></a>
-        </div>
         <div class="box">
             <h1>Focus Timer</h1>
             <label for="time-input">Enter Time (Minutes, Max 60):</label>
